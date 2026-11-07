@@ -29,7 +29,8 @@ Semantic search is optional and uses an embedding server that **you** configure.
 7. [Privacy boundary](#privacy-boundary)
 8. [Documentation](#documentation)
 9. [Contributing](#contributing)
-10. [License](#license)
+10. [Acknowledgements](#acknowledgements)
+11. [License](#license)
 
 ## How it works
 
@@ -151,6 +152,12 @@ Use a `localhost` endpoint to keep everything on your machine. See [SECURITY.md]
 
 Issues and pull requests are welcome. Read [CONTRIBUTING.md](CONTRIBUTING.md) and the
 [Code of Conduct](CODE_OF_CONDUCT.md) first.
+
+## Acknowledgements
+
+DigUp Windows is inspired by [ARahim3/DigUp](https://github.com/ARahim3/DigUp) by Abdur Rahim, the
+cross-platform on-device search app built on Google DeepMind's EmbeddingGemma 2. Thanks for the
+idea and the design. This project is an independent Windows-focused Rust implementation.
 
 ## License
 

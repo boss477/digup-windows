@@ -12,6 +12,7 @@ All notable changes to DigUp are documented here. The format follows
 - `LICENSE` (MIT), security policy, contributing guide, code of conduct, issue and PR templates.
 - `ci.yml` (format, tests, clippy on pull requests and pushes), a tag-driven `release.yml` that
   publishes the validated zip with `SHA256SUMS.txt`, and Dependabot for Cargo and GitHub Actions.
+- Acknowledgement of the upstream ARahim3/DigUp project that inspired this one.
 - Package metadata in `Cargo.toml` (license, repository, readme, keywords).
 
 ### Changed
