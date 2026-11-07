@@ -1,0 +1,53 @@
+name: Bug report
+description: Something in DigUp is broken or behaves unexpectedly
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting. For **security problems**, do not file a public issue; see
+        [SECURITY.md](https://github.com/boss477/digup-windows/blob/main/SECURITY.md).
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What you did, what you expected, and what you saw instead.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: DigUp version
+      placeholder: '0.1.2'
+    validations:
+      required: true
+  - type: input
+    id: windows
+    attributes:
+      label: Windows version
+      placeholder: 'Windows 11 23H2 x64'
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Exact / regex / wildcard search
+        - Document extraction (PDF, DOCX, ODT)
+        - OCR
+        - Media indexing
+        - Semantic search / embedding server
+        - Install / uninstall
+        - Other
+  - type: textarea
+    id: extra
+    attributes:
+      label: Logs or screenshots
+      description: Remove anything private first.

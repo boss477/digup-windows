@@ -2,6 +2,7 @@ name: Windows headless validation
 
 on:
   workflow_dispatch:
+  workflow_call: # release.yml reuses this validation before publishing
   push:
     branches: [main]
 

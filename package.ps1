@@ -1,4 +1,4 @@
-param([switch]$SkipBuild, [ValidatePattern('^[A-Za-z0-9._-]+\.zip$')][string]$ArchiveName = 'DigUpWindows-0.1.2-windows-x64-preview.zip')
+param([switch]$SkipBuild, [ValidatePattern('^[A-Za-z0-9._-]+\.zip$')][string]$ArchiveName = ('DigUpWindows-{0}-windows-x64-preview.zip' -f (Select-String -LiteralPath (Join-Path $PSScriptRoot 'Cargo.toml') -Pattern '^version = "(.+)"').Matches[0].Groups[1].Value))
 $ErrorActionPreference = 'Stop'
 if (-not $SkipBuild) { & (Join-Path $PSScriptRoot 'build.ps1') }
 $executable = Join-Path $PSScriptRoot 'target\release\digup-windows.exe'

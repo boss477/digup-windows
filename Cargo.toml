@@ -2,6 +2,14 @@
 name = "digup-windows"
 version = "0.1.2"
 edition = "2021"
+description = "Windows desktop file search: exact, regex, OCR and optional local semantic search"
+license = "MIT"
+repository = "https://github.com/boss477/digup-windows"
+homepage = "https://github.com/boss477/digup-windows"
+readme = "README.md"
+keywords = ["search", "windows", "ocr", "embeddings", "desktop"]
+categories = ["gui", "filesystem"]
+publish = false
 
 [dependencies]
 eframe = "0.31"
