@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="docs/images/logo.svg" alt="DigUp logo" width="128" />
+
 # DigUp Windows
 
 **Find anything on Windows by what it means, not only what it's called.**
