@@ -4,6 +4,7 @@ mod cache;
 mod desktop;
 mod documents;
 mod exact;
+mod gui_check;
 mod health;
 mod location;
 mod media;
@@ -181,6 +182,20 @@ fn cosine(a: &[f64], b: &[f64]) -> Result<f64, String> {
         return Err("Zero embedding".into());
     }
     Ok(a.iter().zip(b).map(|(x, y)| x * y).sum::<f64>() / norm)
+}
+fn gemma_search_query(query: &str) -> String {
+    format!("task: search result | query: {query}")
+}
+fn gemma_code_query(query: &str) -> String {
+    format!("task: code retrieval | query: {query}")
+}
+fn gemma_document(title: &str, text: &str) -> String {
+    let title = if title.trim().is_empty() {
+        "none"
+    } else {
+        title
+    };
+    format!("title: {title} | text: {text}")
 }
 impl eframe::App for App {
     fn on_exit(&mut self, _: Option<&eframe::glow::Context>) {
@@ -411,15 +426,16 @@ impl eframe::App for App {
                             .map_err(|e| e.to_string())?;
                         // EmbeddingGemma 2 uses asymmetric query/document task instructions.
                         let gemma = model.to_lowercase().contains("embeddinggemma");
-                        let query_input = if gemma {
-                            format!("task: search result | query: {query}")
-                        } else {
-                            query.clone()
-                        };
+                        let query_input = if gemma { gemma_search_query(&query) } else { query.clone() };
                         let q = if let Some(path) = &image_query {
                             embedding_input(&client, &url, &model, media::image_input(path)?)?
                         } else {
                             embedding(&client, &url, &model, &query_input)?
+                        };
+                        let code_q = if gemma && include_code && image_query.is_none() {
+                            Some(embedding(&client, &url, &model, &gemma_code_query(&query))?)
+                        } else {
+                            None
                         };
                         let mut results = vec![];
                         let mut warnings = vec![];
@@ -522,19 +538,19 @@ impl eframe::App for App {
                                 let existing = results.iter().find(|(path, _)| path == &entry.path).map(|(_,score)| *score);
                                 let mut best = existing.unwrap_or(-1.0_f64);
                                 let mut found = existing.is_some();
+                                let score_query = match (&code_q, documents::source_file(&entry.path)) {
+                                    (Some(code_query), true) => code_query,
+                                    _ => &q,
+                                };
                                 for section in sections {
                                 for chunk in cache::chunks(&section.text) {
                                     if cancel.load(Ordering::Relaxed) {
                                         return Err("Search cancelled".into());
                                     }
                                     let input = if gemma {
-                                        format!(
-                                            "title: {} | text: {chunk}",
-                                            entry
-                                                .path
-                                                .file_name()
-                                                .unwrap_or_default()
-                                                .to_string_lossy()
+                                        gemma_document(
+                                            &entry.path.file_name().unwrap_or_default().to_string_lossy(),
+                                            &chunk,
                                         )
                                     } else {
                                         chunk.clone()
@@ -548,7 +564,7 @@ impl eframe::App for App {
                                             vector
                                         }
                                     };
-                                    let score = cosine(&q, &vector)?;
+                                    let score = cosine(score_query, &vector)?;
                                     if !found || score > best { best = score; locations.insert(entry.path.clone(), location::Match { page: section.page, seconds: None, snippet: chunk.chars().take(300).collect() }); }
                                     found = true;
                                 }
@@ -665,6 +681,16 @@ impl eframe::App for App {
     }
 }
 fn main() -> eframe::Result {
+    let arguments: Vec<String> = std::env::args().collect();
+    if let Some(index) = arguments
+        .iter()
+        .position(|argument| argument == "--gui-check")
+    {
+        let report = arguments
+            .get(index + 1)
+            .expect("--gui-check requires a report path");
+        return gui_check::run(PathBuf::from(report));
+    }
     if std::env::args().any(|argument| argument == "--self-check") {
         match health::run() {
             Ok(report) => println!("{report}"),
@@ -692,6 +718,25 @@ fn main() -> eframe::Result {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn embeddinggemma_search_and_code_prompts_match_model_card() {
+        assert_eq!(
+            gemma_search_query("find the cache"),
+            "task: search result | query: find the cache"
+        );
+        assert_eq!(
+            gemma_code_query("find the cache"),
+            "task: code retrieval | query: find the cache"
+        );
+        assert_eq!(
+            gemma_document("cache.rs", "fn get() {}"),
+            "title: cache.rs | text: fn get() {}"
+        );
+        assert_eq!(
+            gemma_document(" ", "passage"),
+            "title: none | text: passage"
+        );
+    }
     #[test]
     #[ignore = "requires local multimodal llama.cpp server and generated image fixture"]
     fn live_multimodal_embeddings() {

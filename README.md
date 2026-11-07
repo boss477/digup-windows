@@ -25,6 +25,8 @@ flowchart LR
 - Native folder watching and result previews
 - Windows per-user install and uninstall scripts
 
+For semantic search, use LM Studio or an OpenAI-compatible llama.cpp embedding server. For EmbeddingGemma 2, DigUp applies the model's `SearchQuery` prompt to normal queries, `CodeRetrieval` to source search, and titled `title: … | text: …` inputs to documents. The configured server receives the request; use `localhost` to keep inference local.
+
 ## Build and run
 
 ```powershell
