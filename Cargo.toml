@@ -31,6 +31,9 @@ tray-icon = "0.26"
 global-hotkey = "0.8"
 tempfile = "3"
 
+[build-dependencies]
+winresource = "0.1"
+
 [profile.release]
 lto = true
 strip = true

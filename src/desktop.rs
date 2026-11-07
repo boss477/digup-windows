@@ -12,6 +12,19 @@ use tray_icon::{
     Icon, TrayIcon, TrayIconBuilder,
 };
 
+const WINDOW_ICON_PNG: &[u8] = include_bytes!("../assets/icon-256.png");
+const TRAY_ICON_PNG: &[u8] = include_bytes!("../assets/icon-64.png");
+
+/// Window and taskbar icon, decoded from the embedded PNG.
+pub fn window_icon() -> Option<eframe::egui::IconData> {
+    eframe::icon_data::from_png_bytes(WINDOW_ICON_PNG).ok()
+}
+
+fn tray_icon() -> Result<Icon, String> {
+    let data = eframe::icon_data::from_png_bytes(TRAY_ICON_PNG).map_err(|e| e.to_string())?;
+    Icon::from_rgba(data.rgba, data.width, data.height).map_err(|e| e.to_string())
+}
+
 pub struct Desktop {
     _tray: TrayIcon,
     _hotkeys: GlobalHotKeyManager,
@@ -44,8 +57,7 @@ impl Desktop {
         let exit = MenuItem::new("Quit", true, None);
         menu.append_items(&[&open, &exit])
             .map_err(|e| e.to_string())?;
-        let icon = Icon::from_rgba([40, 180, 170, 255].repeat(32 * 32), 32, 32)
-            .map_err(|e| e.to_string())?;
+        let icon = tray_icon()?;
         let tray = TrayIconBuilder::new()
             .with_tooltip("DigUp · Ctrl+Shift+Space")
             .with_icon(icon)

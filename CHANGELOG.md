@@ -8,6 +8,7 @@ All notable changes to DigUp are documented here. The format follows
 
 ### Added
 
+- Application icon: embedded in the `.exe` (Explorer, taskbar, shortcuts), used for the window and the tray (replacing a flat colored square), plus a project logo and GitHub social-preview image.
 - README rewrite with install, optional components and build instructions.
 - `LICENSE` (MIT), security policy, contributing guide, code of conduct, issue and PR templates.
 - `ci.yml` (format, tests, clippy on pull requests and pushes), a tag-driven `release.yml` that

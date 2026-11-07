@@ -703,7 +703,16 @@ fn main() -> eframe::Result {
     }
     eframe::run_native(
         "DigUp Windows",
-        eframe::NativeOptions::default(),
+        eframe::NativeOptions {
+            viewport: {
+                let mut viewport = eframe::egui::ViewportBuilder::default();
+                if let Some(icon) = desktop::window_icon() {
+                    viewport = viewport.with_icon(icon);
+                }
+                viewport
+            },
+            ..Default::default()
+        },
         Box::new(|cc| {
             let mut app = App::default();
             match desktop::Desktop::new(cc.egui_ctx.clone()) {
