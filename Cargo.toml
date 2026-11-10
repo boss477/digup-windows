@@ -28,7 +28,7 @@ zip = { version = "2", default-features = false, features = ["deflate"] }
 roxmltree = "0.21"
 notify = "8"
 tray-icon = "0.26"
-global-hotkey = "0.8"
+global-hotkey = "0.9"
 tempfile = "3"
 
 [build-dependencies]
