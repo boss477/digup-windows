@@ -1,21 +1,28 @@
-<div align="center">
+<p align="center"><img src="docs/images/logo.svg" alt="DigUp logo" width="112" /></p>
 
-<img src="docs/images/logo.svg" alt="DigUp logo" width="128" />
+<h1 align="center">DigUp Windows</h1>
 
-# DigUp Windows
+<p align="center"><strong>Find anything on Windows by what it means, not only what it's called.</strong></p>
 
-**Find anything on Windows by what it means, not only what it's called.**
-
+<p align="center">
 A native Rust desktop search tool for filenames, documents, OCR and optional local semantic search.
+Exact search and extraction run entirely on your machine; semantic search uses an embedding server
+that you configure.
+</p>
 
-[![Validation](https://github.com/boss477/digup-windows/actions/workflows/windows-validation.yml/badge.svg)](https://github.com/boss477/digup-windows/actions/workflows/windows-validation.yml)
-[![CI](https://github.com/boss477/digup-windows/actions/workflows/ci.yml/badge.svg)](https://github.com/boss477/digup-windows/actions/workflows/ci.yml)
-[![Release](https://img.shields.io/github/v/release/boss477/digup-windows?include_prereleases&label=release)](https://github.com/boss477/digup-windows/releases)
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
-![Platform](https://img.shields.io/badge/platform-Windows%2010%20%7C%2011%20x64-lightgrey)
-![Rust](https://img.shields.io/badge/rust-2021-orange)
+<p align="center">
+  <a href="https://github.com/boss477/digup-windows/actions/workflows/windows-validation.yml"><img alt="Validation" src="https://github.com/boss477/digup-windows/actions/workflows/windows-validation.yml/badge.svg"></a>
+  <a href="https://github.com/boss477/digup-windows/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/boss477/digup-windows/actions/workflows/ci.yml/badge.svg"></a>
+  <a href="https://github.com/boss477/digup-windows/releases"><img alt="Release" src="https://img.shields.io/github/v/release/boss477/digup-windows?include_prereleases&label=release&color=0b7285"></a>
+  <a href="LICENSE"><img alt="license: MIT" src="https://img.shields.io/badge/license-MIT-0b7285"></a>
+  <img alt="platform: Windows 10 | 11 x64" src="https://img.shields.io/badge/platform-Windows%2010%20|%2011%20x64-0b7285">
+  <img alt="Rust: 2021" src="https://img.shields.io/badge/Rust-2021-0b7285?logo=rust&logoColor=white">
+  <a href="https://boss477.github.io/digup-windows/"><img alt="website: boss477.github.io" src="https://img.shields.io/badge/website-boss477.github.io-0b7285"></a>
+</p>
 
-</div>
+<p align="center"><a href="https://boss477.github.io/digup-windows/"><img src="docs/images/landing-page.webp" alt="The DigUp project page" width="100%"></a></p>
+
+<sub>The project page, with the search modes, the pipeline and the privacy boundary.</sub>
 
 DigUp is a Windows preview. Exact search and document extraction run entirely on your machine.
 Semantic search is optional and uses an embedding server that **you** configure.

@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DigUp Windows, file search by meaning</title>
+<meta name="description" content="DigUp is a native Rust desktop search tool for Windows: filenames, documents, OCR and optional local semantic search. A Windows preview, MIT licensed.">
+<script>document.documentElement.classList.add('js');</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="container">
+  <header class="nav">
+    <a class="wordmark" href="#main"><img src="images/logo.svg" alt="" width="40" height="40">DigUp</a>
+    <nav aria-label="Page">
+      <ul>
+        <li><a href="#flow">How it works</a></li>
+        <li><a href="#privacy">Privacy</a></li>
+        <li><a href="#install">Install</a></li>
+        <li><a href="https://github.com/boss477/digup-windows">GitHub</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero" id="main">
+    <div>
+      <h1>Find files by what they mean</h1>
+      <p class="lead">Native Windows search across filenames, documents, OCR and optional local semantics.</p>
+      <div class="actions">
+        <a class="btn" href="https://github.com/boss477/digup-windows/releases">Download the preview</a>
+        <a class="link" href="https://github.com/boss477/digup-windows#build-from-source">Build from source</a>
+      </div>
+      <small>Windows 10 and 11, x64. MIT licence.</small>
+    </div>
+    <figure class="tablet clay" data-switch>
+      <div class="seg" role="tablist" aria-label="Search mode">
+        <button type="button" role="tab" id="t-exact" aria-controls="m-exact" aria-selected="true">Exact</button>
+        <button type="button" role="tab" id="t-regex" aria-controls="m-regex" aria-selected="false" tabindex="-1">Regex</button>
+        <button type="button" role="tab" id="t-wild" aria-controls="m-wild" aria-selected="false" tabindex="-1">Wildcard</button>
+        <button type="button" role="tab" id="t-mean" aria-controls="m-mean" aria-selected="false" tabindex="-1">Meaning</button>
+      </div>
+      <div class="mode" role="tabpanel" id="m-exact" aria-labelledby="t-exact">
+        <p class="mode__query">lease agreement</p>
+        <p>Case-insensitive matches in names and text.</p>
+      </div>
+      <div class="mode" role="tabpanel" id="m-regex" aria-labelledby="t-regex">
+        <p class="mode__query">invoice_\d{4}\.pdf</p>
+        <p>Regular expressions over the exact index.</p>
+      </div>
+      <div class="mode" role="tabpanel" id="m-wild" aria-labelledby="t-wild">
+        <p class="mode__query">*.docx</p>
+        <p>Wildcards, scoped to a folder if you like.</p>
+      </div>
+      <div class="mode" role="tabpanel" id="m-mean" aria-labelledby="t-mean">
+        <p class="mode__query">the contract with the deposit clause</p>
+        <p>Optional local embeddings. Falls back to exact search.</p>
+      </div>
+    </figure>
+  </section>
+</div>
+
+<main>
+<section class="flow" id="flow">
+  <div class="container">
+    <h2>Six stages, two of them optional</h2>
+    <ol aria-label="The DigUp pipeline, a diagram of the real system">
+      <li class="clay clay--cyan"><h3>Filesystem watcher</h3><p>Follows the folders you choose.</p></li>
+      <li class="clay"><h3>Exact index</h3><p>Names and text, always on.</p></li>
+      <li class="clay clay--butter"><h3>OCR and media extraction</h3><p>Optional, for scans, audio and video.</p></li>
+      <li class="clay clay--butter"><h3>Local embeddings</h3><p>Optional, from a server you configure.</p></li>
+      <li class="clay"><h3>Ranking</h3><p>Merges exact and semantic results.</p></li>
+      <li class="clay clay--cyan"><h3>Preview and open</h3><p>PDFs at the page, media at the timestamp.</p></li>
+    </ol>
+    <p class="flow__note">If the embedding server is unavailable, DigUp falls back to exact search.</p>
+  </div>
+</section>
+
+<section class="reads">
+  <div class="container cols">
+    <div class="reads__text">
+      <h2>It reads inside six formats</h2>
+      <p class="lead">Text is extracted on your machine. OCR covers images and scanned pages.</p>
+    </div>
+    <ul>
+      <li class="clay">TXT</li>
+      <li class="clay">Markdown</li>
+      <li class="clay">RST</li>
+      <li class="clay">PDF</li>
+      <li class="clay">DOCX</li>
+      <li class="clay">ODT</li>
+    </ul>
+  </div>
+</section>
+
+<section class="bound" id="privacy">
+  <div class="container cols">
+    <h2>You draw the privacy boundary</h2>
+    <article class="clay">
+      <h3>Stays on your machine</h3>
+      <p>Exact indexing and document extraction run locally.</p>
+    </article>
+    <article class="clay clay--butter">
+      <h3>Goes where you point it</h3>
+      <p>Semantic and multimedia search send content to the provider you configure. Use a localhost endpoint to keep it local.</p>
+    </article>
+  </div>
+</section>
+
+<section class="install" id="install">
+  <div class="container cols">
+    <div class="install__text">
+      <h2>Install it per user</h2>
+      <p class="lead">The preview is not code-signed, so SmartScreen may warn.</p>
+      <div class="actions"><a class="link" href="https://github.com/boss477/digup-windows#install">Read the full install notes</a></div>
+    </div>
+    <ol class="clay">
+      <li><span>Download the zip and check it against <code>SHA256SUMS.txt</code>.</span></li>
+      <li><span>Run <code>./check-prerequisites.ps1</code> from the extracted folder.</span></li>
+      <li><span>Run <code>./install.ps1</code>. Uninstalling keeps your settings.</span></li>
+    </ol>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="container cols">
+    <a class="wordmark" href="#main"><img src="images/logo.svg" alt="" width="96" height="96">DigUp</a>
+    <ul>
+      <li><a class="link" href="https://github.com/boss477/digup-windows">Repository</a></li>
+      <li><a class="link" href="https://github.com/boss477/digup-windows/blob/main/SECURITY.md">Security policy</a></li>
+      <li><a class="link" href="https://github.com/boss477/digup-windows/blob/main/CHANGELOG.md">Changelog</a></li>
+    </ul>
+    <small>A Windows preview, MIT licensed.</small>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('[data-switch]').forEach((sw) => {
+  const tabs = [...sw.querySelectorAll('[role="tab"]')];
+  const show = (tab, focus) => {
+    tabs.forEach((t) => {
+      const on = t === tab;
+      t.setAttribute('aria-selected', String(on));
+      t.tabIndex = on ? 0 : -1;
+      document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+    });
+    if (focus) tab.focus({ preventScroll: true });
+  };
+  tabs.forEach((t, i) => {
+    t.addEventListener('click', () => show(t));
+    t.addEventListener('keydown', (e) => {
+      if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+      e.preventDefault();
+      show(tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length], true);
+    });
+  });
+  show(tabs[0]);
+});
+</script>
+</body>
+</html>
